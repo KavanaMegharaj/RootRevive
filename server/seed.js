@@ -1,0 +1,134 @@
+import dotenv from 'dotenv';
+import connectDB from './config/db.js';
+import User from './models/User.js';
+import Product from './models/Product.js';
+
+dotenv.config();
+await connectDB();
+
+try {
+  // Create admin if not exists
+  const adminEmail = 'admin@kredo.in';
+  let admin = await User.findOne({ email: adminEmail });
+  if (!admin) {
+    admin = await User.create({
+      name: 'Admin',
+      email: adminEmail,
+      password: 'Admin@123',
+      role: 'admin'
+    });
+    console.log('Admin created: admin@kredo.in / Admin@123');
+  } else {
+    console.log('Admin exists');
+  }
+
+  // Seed products if none
+  const count = await Product.countDocuments();
+  if (count === 0) {
+    await Product.insertMany([
+      {
+        name: 'Deep Hydration Hair Oil',
+        description: 'Rich moisture to restore dry and damaged hair.',
+        price: 18.36,
+        stock: 10,
+        image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80',
+        type: 'Oil'
+      },
+      {
+        name: 'Shine Hair Shampoo',
+        description: 'Rich moisture to restore dry and damaged hair.',
+        price: 22.50,
+        stock: 10,
+        image: 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80',
+        type: 'Shampoo'
+      },
+      {
+        name: 'Damage Repair Hair Serum',
+        description: 'Rich moisture to restore dry and damaged hair.',
+        price: 32.45,
+        stock: 10,
+        image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80',
+        type: 'Serum'
+      },
+      {
+        name: 'Deep-Shine Hair Oil',
+        description: 'Rich moisture to restore dry and damaged hair.',
+        price: 21.06,
+        stock: 10,
+        image: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80',
+        type: 'Oil'
+      },
+      {
+        name: 'Anti-Hairfall Hair Oil',
+        description: 'Rich moisture to restore dry and damaged hair.',
+        price: 22.00,
+        stock: 10,
+        image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80',
+        type: 'Oil'
+      },
+      {
+        name: 'Deep Nourishing Hair Serum',
+        description: 'Rich moisture to restore dry and damaged hair.',
+        price: 30.40,
+        stock: 10,
+        image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80',
+        type: 'Serum'
+      },
+      {
+        name: 'Deep Hydration Hair Oil',
+        description: 'Rich moisture to restore dry and damaged hair.',
+        price: 27.81,
+        stock: 10,
+        image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80',
+        type: 'Oil'
+      },
+      {
+        name: 'Anti-Dandruff Hair Shampoo',
+        description: 'Rich moisture to restore dry and damaged hair.',
+        price: 24.50,
+        stock: 10,
+        image: 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80',
+        type: 'Shampoo'
+      },
+      {
+        name: 'SOS Custom Repair Shampoo',
+        description: 'A nourishing shampoo for healthier, stronger hair.',
+        price: 25.60,
+        stock: 10,
+        image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80',
+        type: 'Shampoo'
+      },
+      {
+        name: 'Anti-Dry Hair Shampoo',
+        description: 'Rich moisture to restore dry and damaged hair.',
+        price: 22.00,
+        stock: 10,
+        image: 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80',
+        type: 'Shampoo'
+      },
+      {
+        name: 'Smoothening Hair Serum',
+        description: 'Rich moisture to smoothen damaged hair.',
+        price: 23.20,
+        stock: 10,
+        image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80',
+        type: 'Serum'
+      },
+      {
+        name: 'Wave Defining Hair Conditioner',
+        description: 'Smooth conditioning to define your waves.',
+        price: 21.00,
+        stock: 10,
+        image: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80',
+        type: 'Conditioner'
+      }
+    ]);
+    console.log('Shampoo and serum products inserted');
+  } else {
+    console.log('Products already present');
+  }
+} catch (err) {
+  console.error(err);
+} finally {
+  process.exit(0);
+}
