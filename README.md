@@ -28,5 +28,5 @@ Then open http://localhost:5173
 Change `JWT_SECRET` before deploying. Set `MONGO_URI` to your MongoDB (local or Atlas).
 
 ## Useful Links
-- GitHub: <YOUR_GITHUB_URL>
-- Backend: <YOUR_BACKEND_URL>
+- GitHub: https://github.com/KavanaMegharaj/RootRevive
+- Backend: http://localhost:5002/api
